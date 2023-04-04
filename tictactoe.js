@@ -1,8 +1,8 @@
 const gameBoard = (() => {
     const cells = {
-        "topLeft":"",       "topMiddle":"",     "topRight":"",
-        "middleLeft":"",    "middle":"",        "middleRight":"",
-        "bottomLeft":"",    "bottomMiddle":"",  "bottomRight":""
+        "topLeft":"X",       "topMiddle":"",     "topRight":"",
+        "middleLeft":"",    "middle":"O",        "middleRight":"X",
+        "bottomLeft":"O",    "bottomMiddle":"",  "bottomRight":""
     };
 
     const updateCell = (cellName, cellMarker) => {
@@ -12,13 +12,35 @@ const gameBoard = (() => {
         }
         else {
             cell = cellMarker;
-        } 
+        };
     };
+
+    const clearCell = () => {
+        var cellNames = Array.from(arguments);
+        for (i=0; i<cellNames.length; i+=1){
+            cells[cellNames[i]] = "";
+        };
+    };
+
+    const writeBoard = () => {
+        for (const key in cells) {
+            if (Object.hasOwnProperty.call(cells, key)) {
+                const cellValue = cells[key];
+                const cellElement = $("#"+key);
+                cellElement.text(cellValue);
+            };
+        };
+    };
+    return {
+        updateCell,
+        clearCell,
+        writeBoard,
+    }
 })();
 
-const Player = (marker, name) => {
-    const marker = marker;
-    const name = name;
+const Player = (newMarker, newName) => {
+    const marker = newMarker;
+    const name = newName;
     const getMarker = () => marker;
     const getName = () => name;
     const setMarker = newMarker => {
@@ -34,5 +56,5 @@ const game = (() => {
 })();
 
 $(() => {
-
+    gameBoard.writeBoard();
 });
