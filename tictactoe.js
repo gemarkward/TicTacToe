@@ -1,9 +1,14 @@
 const gameBoard = (() => {
+
     const cells = {
-        "topLeft":"X",       "topMiddle":"",     "topRight":"",
-        "middleLeft":"",    "middle":"O",        "middleRight":"X",
-        "bottomLeft":"O",    "bottomMiddle":"",  "bottomRight":""
+        "topLeft":"",       "topMiddle":"",     "topRight":"",
+        "middleLeft":"",     "middle":"",       "middleRight":"",
+        "bottomLeft":"",    "bottomMiddle":"",  "bottomRight":""
     };
+
+    const getCells = () => {
+        return cells;
+    }
 
     const updateCell = (cellName, cellMarker) => {
         if (cells[cellName] != "") {
@@ -22,6 +27,15 @@ const gameBoard = (() => {
         };
     };
 
+    const clearAll = () => {
+        for (const key in cells) {
+            if (Object.hasOwnProperty.call(cells, key)) {
+                cells[key] = "";
+            };
+        };
+        writeBoard();
+    };
+
     const writeBoard = () => {
         for (const key in cells) {
             if (Object.hasOwnProperty.call(cells, key)) {
@@ -32,9 +46,11 @@ const gameBoard = (() => {
         };
     };
     return {
+        getCells,
         updateCell,
         clearCell,
         writeBoard,
+        clearAll,
     }
 })();
 
@@ -58,15 +74,56 @@ const Player = (newMarker, newName) => {
 };
 
 const game = (() => {
-
+    const checkForWin = () => {
+        winOptions = [
+            ["topLeft","topMiddle", "topRight"],
+            ["middleLeft","middle", "middleRight"],
+            ["bottomLeft","bottomMiddle", "bottomRight"],
+            ["topLeft","middle", "bottomRight"],
+            ["bottomLeft","middle", "topRight"],
+            ["topLeft","middleLeft", "bottomLeft"],
+            ["topMiddle","middle", "bottomMiddle"],
+            ["topRight","middleRight", "bottomRight"]
+        ]
+        const currentBoard = gameBoard.getCells();
+        for (i=0; i<winOptions.length; i+=1){
+            let checkedMarker;
+            let win = true;
+            for (j=0; j<winOptions[i].length; j+=1){
+                var checkedCell = currentBoard[winOptions[i][j]]
+                if (checkedCell == ""){
+                    win = false;
+                    break;
+                }
+                else if (checkedMarker == null){
+                    checkedMarker = checkedCell;
+                }
+                else if (checkedMarker != checkedCell){
+                    win = false;
+                    break;
+                }
+            }
+            if (win == true){
+                return checkedMarker;
+            }
+        }
+        return false;
+    };
+    return {
+        checkForWin,
+    }
 })();
 
 $(() => {
+    let win = false;
     gameBoard.writeBoard();
     $("p").fitText(0.2);
     $(".cell").click(function() {
         gameBoard.updateCell($(this).attr("id"), "Q");
-
+        win = game.checkForWin()
+        console.log(win)
     });
-
+    $("#newGame").click(function(){
+        gameBoard.clearAll();
+    })
 });
