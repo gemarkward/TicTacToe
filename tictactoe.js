@@ -6,13 +6,13 @@ const gameBoard = (() => {
     };
 
     const updateCell = (cellName, cellMarker) => {
-        var cell = cells[cellName];
-        if (cell != "") {
+        if (cells[cellName] != "") {
             alert("Cell is already taken. Choose an empty cell.");
         }
         else {
-            cell = cellMarker;
+            cells[cellName] = cellMarker;
         };
+        writeBoard();
     };
 
     const clearCell = () => {
@@ -63,5 +63,10 @@ const game = (() => {
 
 $(() => {
     gameBoard.writeBoard();
-    jQuery("p").fitText(0.2);
+    $("p").fitText(0.2);
+    $(".cell").click(function() {
+        gameBoard.updateCell($(this).attr("id"), "Q");
+
+    });
+
 });
