@@ -49,6 +49,12 @@ const Player = (newMarker, newName) => {
     const setName = newName => {
         name = newName;
     };
+    return {
+        getMarker,
+        getName,
+        setMarker,
+        setName,
+    }
 };
 
 const game = (() => {
