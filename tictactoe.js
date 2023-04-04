@@ -1,3 +1,11 @@
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
 const gameBoard = (() => {
 
     const cells = {
@@ -125,5 +133,6 @@ $(() => {
     });
     $("#newGame").click(function(){
         gameBoard.clearAll();
+        openForm();
     })
 });
