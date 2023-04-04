@@ -63,4 +63,5 @@ const game = (() => {
 
 $(() => {
     gameBoard.writeBoard();
+    jQuery("p").fitText(0.2);
 });

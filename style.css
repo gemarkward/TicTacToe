@@ -1,0 +1,29 @@
+*
+{
+    margin: auto;
+}
+body
+{
+    height: 80vh;
+    width: 50vw;
+}
+#board
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.row
+{
+    height: 100%;
+    width: 100%;
+}
+.cell
+{
+    display: flex;
+    aspect-ratio : 1 / 1;
+    width: 100%;
+    border-color: black;
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+}
