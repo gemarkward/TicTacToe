@@ -13,29 +13,30 @@
     <script src="tictactoe.js"></script>
     <!-- The form -->
     <div class="form-popup" id="myForm">
-      <form action="/action_page.php" class="form-container">
+      <form id="newGameForm" class="form-container">
         <h1>Players</h1>
         <div class="formRow">
           <label for="player1Name"><b>Name</b></label>
-          <input type="text" placeholder="Player1" name="player1Name" required><br>
+          <input type="text" id="playerOneName" placeholder="Player1" value="Player1" name="player1Name" required><br>
         </div>
         <div class="formRow">
           <label for="player1Marker"><b>Marker</b></label>
-          <input type="text" placeholder="X" name="player1Marker" required>
+          <input type="text" id="playerOneMarker" placeholder="X" value="X" name="player1Marker" required>
         </div>
         <div class="formRow">
           <label for="player2Name"><b>Name</b></label>
-          <input type="text" placeholder="Player2" name="player2Name" required>
+          <input type="text" id="playerTwoName" placeholder="Player2" value="Player2" name="player2Name" required>
         </div>
         <div class="formRow">
           <label for="player2Marker"><b>Marker</b></label>
-          <input type="text" placeholder="O" name="player2Marker" required>
+          <input type="text" id="playerTwoMarker" placeholder="O" value="O" name="player2Marker" required>
         </div>
         <button type="submit" class="btn">Start Game</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
       </form>
     </div>
     <button class="open-button" id="newGame">New Game</button>
+    <h1 id="gameHeader">This is a game header.</h1>
     <div id="board">
         <div class="row" id="topRow">
             <p class="cell" id="topLeft"></p><p class="cell" id="topMiddle"></p><p class="cell" id="topRight"></p>
