@@ -36,12 +36,13 @@ const gameBoard = (() => {
             return 0;
         }
         if (cells[cellName] != "") {
-            alert("Cell is already taken. Choose an empty cell.");
+            alert("Cell is alredy taken. Please try again.");
         }
         else {
             cells[cellName] = cellMarker;
+            writeBoard();
+            game.checkForWin();
         };
-        writeBoard();
     };
 
     const clearCell = () => {
@@ -69,7 +70,21 @@ const gameBoard = (() => {
             };
         };
     };
+
+    const isFull = () => {
+        for (const key in cells) {
+            if (Object.hasOwnProperty.call(cells, key)) {
+                const cell = cells[key];
+                if (cell == ""){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     return {
+        isFull,
         startGame,
         endGame,
         updateHeader,
@@ -164,6 +179,11 @@ const game = (() => {
                 return players[currentPlayer].getName();
             }
         }
+        if (gameBoard.isFull() == true){
+            gameBoard.updateHeader("Game ends in a draw!!");
+            gameBoard.endGame();
+            return false;
+        }
         nextTurn();
         return false;
     };
@@ -201,8 +221,6 @@ $(() => {
     $("p").fitText(0.2);
     $(".cell").click(function() {
         gameBoard.updateCell($(this).attr("id"), game.getCurrentPlayer().getMarker());
-        win = game.checkForWin()
-        console.log(win)
     });
     $("#newGame").click(function(){
         gameBoard.clearAll();
