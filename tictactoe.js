@@ -208,7 +208,8 @@ $(() => {
         gameBoard.clearAll();
         openForm();
     });
-    $('#myForm').submit(function(event) {
+    $(".markerInput").attr("maxlength", "1");
+    $("#myForm").submit(function(event) {
         var $inputs = $('#myForm :input');
         var myInput = {};
         $inputs.each(function() {
